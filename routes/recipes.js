@@ -22,6 +22,8 @@ router.get("/", async (req, res) => {
     });
 })
 
+//create recipe
+
 router.post("/", async (req, res) => {
     const newRecipe = await prisma.recipe.create({
         data: {
@@ -35,6 +37,8 @@ router.post("/", async (req, res) => {
         sucess: true
     });
 })
+
+//get recipe by id
 
 router.get("/:recipe", async (req, res) => {
     const recipe = req.params.recipe;
