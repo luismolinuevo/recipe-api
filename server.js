@@ -1,5 +1,5 @@
 import express from "express";
-import recipeRouter from "./routes/routes.js"
+import recipeRouter from "./routes/recipes.js"
 
 export default function createServer() {
     const app = express();
