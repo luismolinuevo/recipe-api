@@ -1,0 +1,27 @@
+{
+  "name": "recipe-api",
+  "version": "1.0.0",
+  "description": "A API using express, Prisma(mysql), and planet scale.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luismolinuevo/recipe-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luismolinuevo/recipe-api/issues"
+  },
+  "homepage": "https://github.com/luismolinuevo/recipe-api#readme",
+  "dependencies": {
+    "@prisma/client": "^4.10.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "prisma": "^4.10.1"
+  }
+}
