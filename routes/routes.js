@@ -1,7 +1,23 @@
-import createServer from "./server.js";
+import express from "express";
+import { PrismaClient } from '@prisma/client'
+import prisma from "../db/index.js";
 
-const server = createServer();
+const router = express.Router();
 
-server.listen(8080, () =>  {
-    console.log("App is listening at http://localhost:8080");
+//get all recipes for user
+
+router.get("/", async (req, res) => {
+    const allRecipes = await prisma.recipe.findMany({
+        where: {
+            userId: 1
+        },
+        include: {           //send user true
+            user: true
+        }
+    });
+
+    res.status(200).json({
+        sucess: true,
+        todo: allRecipes
+    });
 })
