@@ -59,7 +59,7 @@ router.delete("/:recipe", async (req, res) => {
     const recipe = req.params.recipe;
 
     console.log(req.user)
-    const recipes = await prisma.recipe.delete({
+    const recipes = await prisma.recipe.deleteMany({
         where: {
             id: Number(recipe),
             userId: req.user.id  //make it so user could only delete their own info (this breaks delete route)
