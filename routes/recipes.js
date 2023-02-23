@@ -9,15 +9,12 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     const allRecipes = await prisma.recipe.findMany({
         where: {
-            userId: 1
+            userId: req.user.id
         },
-        include: {           //send user true
-            user: true
-        }
     });
 
     res.status(200).json({
-        sucess: true,
+        success: true,
         todo: allRecipes
     });
 })
@@ -29,12 +26,12 @@ router.post("/", async (req, res) => {
         data: {
             name: req.body.recipe,
             description: req.body.description,
-            userId: 1
+            userId: req.user.id
         }
     });
 
     res.status(201).json({
-        sucess: true
+        success: true
     });
 })
 
@@ -45,14 +42,53 @@ router.get("/:recipe", async (req, res) => {
 
     const recipes = await prisma.recipe.findMany({
         where: {
-            id: Number(recipe)
+            id: Number(recipe),
+            userId: req.user.id
+            
         }
     });
 
     res.status(200).json({
-        sucess: true,
+        success: true,
         recipes
     });
 });
+
+//delete (not tested)
+router.delete("/:recipe", async (req, res) => {
+    const recipe = req.params.recipe;
+
+    console.log(req.user)
+    const recipes = await prisma.recipe.delete({
+        where: {
+            id: Number(recipe),
+            userId: req.user.id  //make it so user could only delete their own info (this breaks delete route)
+        }
+    })
+
+    res.status(200).json({
+        success: true,
+    });
+})
+//edit (not tested)
+router.put("/:recipe", async (req, res) => {
+    const recipe = req.params.recipe;
+
+    const recipes = await prisma.recipe.update({
+        where: {
+            id: Number(recipe)
+        },
+        data: {
+            name: req.body.recipe,
+            description: req.body.description,
+            userId: req.user.id  //user could only edit its own information
+        }
+    })
+
+    res.status(200).json({
+        success: true,
+        recipes
+    });
+})
 
 export default router;
